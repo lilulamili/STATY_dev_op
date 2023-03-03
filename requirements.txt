@@ -7,7 +7,7 @@ langdetect==1.0.9
 linearmodels==4.24
 matplotlib==3.3.4
 nltk==3.7
-numpy====1.23.3
+numpy==1.23.3
 palettable==3.3.0
 pandas==1.5.3
 plotly==4.14.3
