@@ -460,7 +460,13 @@ def app():
                                 'remove html tags', 
                                 'remove emails', 
                                 'remove symbols']
-            text_prep_ops=st.multiselect('Select text pre-processing options',text_prep_options,text_prep_options)
+            text_prep_selection=['remove whitespaces',
+                                'remove abbreviations',
+                                'remove numbers',
+                                'remove urls',
+                                'remove html tags', 
+                                'remove emails']                    
+            text_prep_ops=st.multiselect('Select text pre-processing options',text_prep_options,text_prep_selection)
             number_remove= False # don't remove within cv_text function
                                  
             #Stop words handling:
