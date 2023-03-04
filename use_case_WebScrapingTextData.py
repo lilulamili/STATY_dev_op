@@ -30,6 +30,9 @@ import nltk
 nltk.download('punkt')
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+t5_model = AutoModelForSeq2SeqLM.from_pretrained('t5-base')
+t5_tokenizer = AutoTokenizer.from_pretrained('t5-base')
 #----------------------------------------------------------------------------------------------
 
 def app():
@@ -233,7 +236,7 @@ def app():
                     #Abstractive summary T5-base
                     progress += 1 # mask the slow process
                     sum_bar.progress(progress/progress_len)
-                    t5_summary=fc.t5_summary(user_text) 
+                    t5_summary=fc.t5_summary(user_text,t5_model,t5_tokenizer) 
                     st.subheader("Abstractive summarization")                 
                     T5_output = st.expander("T5-base", expanded = False)
                     with T5_output:
@@ -365,7 +368,7 @@ def app():
                 progress += 1
                 ra_bar.progress(progress/3)
 
-                t5_summary=fc.t5_summary(paper_text)
+                t5_summary=fc.t5_summary(paper_text,t5_model,t5_tokenizer) 
                 progress += 1
                 ra_bar.progress(progress/3)
                 st.success('Paper summarization completed!')
