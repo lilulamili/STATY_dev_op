@@ -116,7 +116,7 @@ def app():
     st.header('**Web scraping and text data**')
     tw_meth = ['Text analysis',
                 'Text summarization',                  
-                'Wikipedia-based answering app',
+                'Wikipedia-based search',
                 'PLOS ONE paper access and summarization',
                 'Stock data access via yfinance'] #  'Yahoo Finance data analysis','Stock data analysis']
     tw_classifier = st.selectbox('What analysis would you like to perform?', list('-')+tw_meth, key = st.session_state['key'], on_change=cc)
@@ -129,9 +129,9 @@ def app():
         st.markdown(basic_text)
 
     #------------------------------------------------------------
-    # Wiki-based answering app
+    # Wiki-based search
     # -----------------------------------------------------------        
-    if tw_classifier=='Wikipedia-based answering app': 
+    if tw_classifier=='Wikipedia-based search': 
         
         # Clear cache
         st.legacy_caching.clear_cache()
