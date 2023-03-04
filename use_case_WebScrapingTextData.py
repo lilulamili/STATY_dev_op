@@ -35,7 +35,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 def app():
 
     # Clear cache
-    st.legacy_caching.clear_cache()
+    #st.legacy_caching.clear_cache()
 
     # Hide traceback in error messages (comment out for de-bugging)
     #sys.tracebacklimit = 0
@@ -136,12 +136,15 @@ def app():
         # Clear cache
         st.legacy_caching.clear_cache()
         st.write("")
-        lang_opt={'English':'en','Cebuano':'ceb','German':'de','Swedish':'sv','French':'fr','Dutch':'nl','Russian':'ru','Spanish':'es','Italian':'it','Egyptian Arabic':'arz','Polish':'pl','Japanese':'ja','Chinese':'zh','Vietnamese':'vi','Waray':'war','Ukrainian':'uk','Arabic':'ar','Portuguese':'pt','Persian':'fa','Catalan':'ca','Serbian':'sr','Indonesian':'id','Korean':'ko','Norwegian (Bokmål)':'no','Chechen':'ce','Finnish':'fi','Turkish':'tr','Hungarian':'hu','Czech':'cs','Tatar':'tt','Serbo-Croatian':'sh','Romanian':'ro','Southern Min':'zh-min-nan','Basque':'eu','Malay':'ms','Esperanto':'eo','Hebrew':'he','Armenian':'hy','Danish':'da','Bulgarian':'bg','Welsh':'cy','Slovak':'sk','South Azerbaijani':'azb','Estonian':'et','Kazakh':'kk','Belarusian':'be','Simple English':'simple','Minangkabau':'min','Uzbek':'uz','Greek':'el','Croatian':'hr','Lithuanian':'lt','Galician':'gl','Azerbaijani':'az','Urdu':'ur','Slovene':'sl','Georgian':'ka','Norwegian (Nynorsk)':'nn','Hindi':'hi','Thai':'th','Tamil':'ta','Latin':'la','Bengali':'bn','Macedonian':'mk','Asturian':'ast','Cantonese':'zh-yue','Latvian':'lv','Tajik':'tg','Afrikaans':'af','Burmese':'my','Malagasy':'mg','Bosnian':'bs','Marathi':'mr','Occitan':'oc','Albanian':'sq','Low German':'nds','Malayalam':'ml','Belarusian (Taraškievica)':'be-tarask','Kyrgyz':'ky','Telugu':'te','Breton':'br','Swahili':'sw','Ladin':'lld','Newar':'new','Javanese':'jv','Venetian':'vec','Haitian Creole':'ht','Piedmontese':'pms','Western Punjabi':'pnb','Bashkir':'ba','Luxembourgish':'lb','Sundanese':'su','Kurdish (Kurmanji)':'ku','Irish':'ga','Lombard':'lmo','Silesian':'szl','Icelandic':'is','Chuvash':'cv','West Frisian':'fy','Kurdish (Sorani)':'ckb','Tagalog':'tl','Aragonese':'an','Wu Chinese':'wuu','Zaza':'diq','Punjabi':'pa','Scots':'sco','Ido':'io','Volapük':'vo','Yoruba':'yo','Nepali':'ne','Gujarati':'gu','Alemannic German':'als','Kannada':'kn','Interlingua':'ia','Bavarian':'bar','Kotava':'avk','Sicilian':'scn','Bishnupriya Manipuri':'bpy','Quechua (Southern Quechua)':'qu','Crimean Tatar':'crh','Mongolian':'mn','Navajo':'nv','Hausa':'ha','Mingrelian':'xmf','Sinhala':'si','Balinese':'ban','Samogitian':'bat-smg','Pashto':'ps','North Frisian':'frr','Ossetian':'os','Odia':'or','Yakut':'sah','Scottish Gaelic':'gd','Buginese':'bug','Eastern Min':'cdo','Yiddish':'yi','Ilocano':'ilo','Sindhi':'sd','Amharic':'am','Neapolitan':'nap','Limburgish':'li','Gorontalo':'gor','Upper Sorbian':'hsb','Faroese':'fo','Banyumasan':'map-bms','Maithili':'mai','Mazanderani':'mzn','Igbo':'ig','Central Bikol':'bcl','Emilian-Romagnol':'eml','Acehnese':'ace','Shan':'shn','Classical Chinese':'zh-classical','Sanskrit':'sa','Walloon':'wa','Interlingue':'ie','Ligurian':'lij','Assamese':'as','Zulu':'zu','Meadow Mari':'mhr','Western Armenian':'hyw','Hill Mari':'mrj','Fiji Hindi':'hif','Shona':'sn','Banjarese':'bjn','Meitei':'mni','Hakka Chinese':'hak','Khmer':'km','Tarantino':'roa-tara','Somali':'so','Kapampangan':'pam','Rusyn':'rue','Northern Sotho':'nso','Bihari (Bhojpuri)':'bh','Tumbuka':'tum','Santali':'sat','Northern Sámi':'se','Maori':'mi','Erzya':'myv','West Flemish':'vls','Dutch Low Saxon':'nds-nl','Nahuatl':'nah','Sardinian':'sc','Cornish':'kw','Veps':'vep','Kabyle':'kab','Turkmen':'tk','Gan Chinese':'gan','Corsican':'co','Gilaki':'glk','Dagbani':'dag','Moroccan Arabic':'ary','Võro':'fiu-vro','Lhasa Tibetan':'bo','Abkhaz':'ab','Manx':'gv','Franco-Provençal':'frp','Saraiki':'skr','Zeelandic':'zea','Uyghur':'ug','Komi':'kv','Picard':'pcd','Udmurt':'udm','Kashubian':'csb','Maltese':'mt','Guarani':'gn','Aymara':'ay','Inari Sámi':'smn','Norman':'nrm','Lezgian':'lez','Lingua Franca Nova':'lfn','Saterland Frisian':'stq','Livvi-Karelian':'olo','Lao':'lo','Kinyarwanda':'rw','Mirandese':'mwl','Old English':'ang','Friulian':'fur','Romansh':'rm','Judaeo-Spanish':'lad','Konkani (Goan Konkani)':'gom','Pangasinan':'pag','Permyak':'koi','Tuvan':'tyv','Extremaduran':'ext','Lower Sorbian':'dsb','Avar':'av','Doteli':'dty','Lingala':'ln','Chavacano (Zamboanga)':'cbk-zam','Karakalpak':'kaa','Papiamento':'pap','Maldivian':'dv','Ripuarian':'ksh','Gagauz':'gag','Buryat (Russia Buriat)':'bxr','Palatine German':'pfl','Kashmiri':'ks','Twi':'tw','Moksha':'mdf','Pali':'pi','Sakizaya':'szy','Hawaiian':'haw','Awadhi':'awa','Atayal':'tay','Zhuang (Standard Zhuang)':'za','PaO':'blk','Ingush':'inh','Karachay-Balkar':'krc','Kalmyk Oirat':'xal','Pennsylvania Dutch':'pdc','Atikamekw':'atj','Tongan':'to','Aramaic (Syriac)':'arc','Tulu':'tcy','Luganda':'lg','Mon':'mnw','Kabiye':'kbp','Jamaican Patois':'jam','Nauruan':'na','Wolof':'wo','Kabardian':'kbd','Nias':'nia','Novial':'nov','Kikuyu':'ki','NKo':'nqo','Bislama':'bi','Tok Pisin':'tpi','Tetum':'tet','Shilha':'shi','Lojban':'jbo','Aromanian':'roa-rup','Fijian':'fj','Lak':'lbe','Kongo (Kituba)':'kg','Xhosa':'xh','Tahitian':'ty','Old Church Slavonic':'cu','Oromo':'om','Gun':'guw','Seediq':'trv','Sranan Tongo':'srn','Samoan':'sm','French Guianese Creole':'gcr','Southern Altai':'alt','Cherokee':'chr','Latgalian':'ltg','Tswana':'tn','Chewa':'ny','Sotho':'st','Madurese':'mad','Norfuk':'pih','Gothic':'got','Amis':'ami','Romani (Vlax Romani)':'rmy','Bambara':'bm','Ewe':'ee','Venda':'ve','Tsonga':'ts','Fula':'ff','Cheyenne':'chy','Swazi':'ss','Kirundi':'rn','Tyap':'kcg','Akan':'ak','Inuktitut':'iu','Chamorro':'ch','Iñupiaq':'ik','Pontic Greek':'pnt','Adyghe':'ady','Nigerian Pidgin':'pcm','Paiwan':'pwn','Sango':'sg','Dinka':'din','Tigrinya':'ti','Greenlandic':'kl','Dzongkha':'dz','Cree':'cr','Ndonga (closed)':'ng','Choctaw (closed)':'cho','Kwanyama (closed)':'kj','Marshallese (closed)':'mh','Hiri Motu (closed)':'ho','Nuosu (closed)':'ii','Northern Luri (closed)':'lrc','Muscogee (closed)':'mus','Afar (closed)':'aa','Herero (closed)':'hz','Kanuri (closed)':'kr'}
+        lang_opt={'English':'en','Cebuano':'ceb','German':'de','Swedish':'sv','French':'fr','Dutch':'nl','Russian':'ru','Spanish':'es','Italian':'it','Egyptian Arabic':'arz','Polish':'pl','Japanese':'ja','Chinese':'zh','Vietnamese':'vi','Waray':'war','Ukrainian':'uk','Arabic':'ar','Portuguese':'pt','Persian':'fa','Catalan':'ca','Serbian':'sr','Indonesian':'id','Korean':'ko','Norwegian (Bokmål)':'no','Chechen':'ce','Finnish':'fi','Turkish':'tr','Hungarian':'hu','Czech':'cs','Tatar':'tt','Serbo-Croatian':'sh','Romanian':'ro','Southern Min':'zh-min-nan','Basque':'eu','Malay':'ms','Esperanto':'eo','Hebrew':'he','Armenian':'hy','Danish':'da','Bulgarian':'bg','Welsh':'cy','Slovak':'sk','South Azerbaijani':'azb','Estonian':'et','Kazakh':'kk','Belarusian':'be','Simple English':'simple','Minangkabau':'min','Uzbek':'uz','Greek':'el','Croatian':'hr','Lithuanian':'lt','Galician':'gl','Azerbaijani':'az','Urdu':'ur','Slovene':'sl','Georgian':'ka','Norwegian (Nynorsk)':'nn','Hindi':'hi','Thai':'th','Tamil':'ta','Latin':'la','Bengali':'bn','Macedonian':'mk','Asturian':'ast','Cantonese':'zh-yue','Latvian':'lv','Tajik':'tg','Afrikaans':'af','Burmese':'my','Malagasy':'mg','Bosnian':'bs','Marathi':'mr','Occitan':'oc','Albanian':'sq','Low German':'nds','Malayalam':'ml','Belarusian (Taraškievica)':'be-tarask','Kyrgyz':'ky','Telugu':'te','Breton':'br','Swahili':'sw','Ladin':'lld','Newar':'new','Javanese':'jv','Venetian':'vec','Haitian Creole':'ht','Piedmontese':'pms','Western Punjabi':'pnb','Bashkir':'ba','Luxembourgish':'lb','Sundanese':'su','Kurdish (Kurmanji)':'ku','Irish':'ga','Lombard':'lmo','Silesian':'szl','Icelandic':'is','Chuvash':'cv','West Frisian':'fy','Kurdish (Sorani)':'ckb','Tagalog':'tl','Aragonese':'an','Wu Chinese':'wuu','Zaza':'diq','Punjabi':'pa','Scots':'sco','Ido':'io','Volapük':'vo','Yoruba':'yo','Nepali':'ne','Gujarati':'gu','Alemannic German':'als','Kannada':'kn','Interlingua':'ia','Bavarian':'bar','Kotava':'avk','Sicilian':'scn','Bishnupriya Manipuri':'bpy','Quechua (Southern Quechua)':'qu','Crimean Tatar':'crh','Mongolian':'mn','Navajo':'nv','Hausa':'ha','Mingrelian':'xmf','Sinhala':'si','Balinese':'ban','Samogitian':'bat-smg','Pashto':'ps','North Frisian':'frr','Ossetian':'os','Odia':'or','Yakut':'sah','Scottish Gaelic':'gd','Buginese':'bug','Eastern Min':'cdo','Yiddish':'yi','Ilocano':'ilo','Sindhi':'sd','Amharic':'am','Neapolitan':'nap','Limburgish':'li','Gorontalo':'gor','Upper Sorbian':'hsb','Faroese':'fo','Banyumasan':'map-bms','Maithili':'mai','Mazanderani':'mzn','Igbo':'ig','Central Bikol':'bcl','Emilian-Romagnol':'eml','Acehnese':'ace','Shan':'shn','Classical Chinese':'zh-classical','Sanskrit':'sa','Walloon':'wa','Interlingue':'ie','Ligurian':'lij','Assamese':'as','Zulu':'zu','Meadow Mari':'mhr','Western Armenian':'hyw','Hill Mari':'mrj','Fiji Hindi':'hif','Shona':'sn','Banjarese':'bjn','Meitei':'mni','Hakka Chinese':'hak','Khmer':'km','Tarantino':'roa-tara','Somali':'so','Kapampangan':'pam','Rusyn':'rue','Northern Sotho':'nso','Bihari (Bhojpuri)':'bh','Tumbuka':'tum','Santali':'sat','Northern Sámi':'se','Maori':'mi','Erzya':'myv','West Flemish':'vls','Dutch Low Saxon':'nds-nl','Nahuatl':'nah','Sardinian':'sc','Cornish':'kw','Veps':'vep','Kabyle':'kab','Turkmen':'tk','Gan Chinese':'gan','Corsican':'co','Gilaki':'glk','Dagbani':'dag','Moroccan Arabic':'ary','Võro':'fiu-vro','Lhasa Tibetan':'bo','Abkhaz':'ab','Manx':'gv','Franco-Provençal':'frp','Saraiki':'skr','Zeelandic':'zea','Uyghur':'ug','Komi':'kv','Picard':'pcd','Udmurt':'udm','Kashubian':'csb','Maltese':'mt','Guarani':'gn','Aymara':'ay','Inari Sámi':'smn','Norman':'nrm','Lezgian':'lez','Lingua Franca Nova':'lfn','Saterland Frisian':'stq','Livvi-Karelian':'olo','Lao':'lo','Kinyarwanda':'rw','Mirandese':'mwl','Old English':'ang','Friulian':'fur','Romansh':'rm','Judaeo-Spanish':'lad','Konkani (Goan Konkani)':'gom','Pangasinan':'pag','Permyak':'koi','Tuvan':'tyv','Extremaduran':'ext','Lower Sorbian':'dsb','Avar':'av','Doteli':'dty','Lingala':'ln','Chavacano (Zamboanga)':'cbk-zam','Karakalpak':'kaa','Papiamento':'pap','Maldivian':'dv','Ripuarian':'ksh','Gagauz':'gag','Buryat (Russia Buriat)':'bxr','Palatine German':'pfl','Kashmiri':'ks','Twi':'tw','Moksha':'mdf','Pali':'pi','Sakizaya':'szy','Hawaiian':'haw','Awadhi':'awa','Atayal':'tay','Zhuang (Standard Zhuang)':'za','PaO':'blk','Ingush':'inh','Karachay-Balkar':'krc','Kalmyk Oirat':'xal','Pennsylvania Dutch':'pdc','Atikamekw':'atj','Tongan':'to','Aramaic (Syriac)':'arc','Tulu':'tcy','Luganda':'lg','Mon':'mnw','Kabiye':'kbp','Jamaican Patois':'jam','Nauruan':'na','Wolof':'wo','Kabardian':'kbd','Nias':'nia','Novial':'nov','Kikuyu':'ki','NKo':'nqo','Bislama':'bi','Tok Pisin':'tpi','Tetum':'tet','Shilha':'shi','Lojban':'jbo','Aromanian':'roa-rup','Fijian':'fj','Lak':'lbe','Kongo (Kituba)':'kg','Xhosa':'xh','Tahitian':'ty','Old Church Slavonic':'cu','Oromo':'om','Gun':'guw','Seediq':'trv','Sranan Tongo':'srn','Samoan':'sm','French Guianese Creole':'gcr','Southern Altai':'alt','Cherokee':'chr','Latgalian':'ltg','Tswana':'tn','Chewa':'ny','Sotho':'st','Madurese':'mad','Norfuk':'pih','Gothic':'got','Amis':'ami','Romani (Vlax Romani)':'rmy','Bambara':'bm','Ewe':'ee','Venda':'ve','Tsonga':'ts','Fula':'ff','Cheyenne':'chy','Swazi':'ss','Kirundi':'rn','Tyap':'kcg','Akan':'ak','Inuktitut':'iu','Chamorro':'ch','Iñupiaq':'ik','Pontic Greek':'pnt','Adyghe':'ady','Nigerian Pidgin':'pcm','Paiwan':'pwn','Sango':'sg','Dinka':'din','Tigrinya':'ti','Greenlandic':'kl','Dzongkha':'dz','Cree':'cr'}
         
-        #st.write("For the Wiki-page summary we used a python library [pysummarization](https://code.accel-brain.com/Automatic-Summarization/), which is 'using a kind of natural language processing and neural network language model'. This library enable you to create a summary with the major points of the text (see the [original source code](https://github.com/accel-brain/accel-brain-code/tree/master/Automatic-Summarization)).")  
-        #user_path = st.text_input(label='Please enter the url of the page:',value="https://en.wikipedia.org/wiki/Data_mining")
         user_query = st.text_input(label='Please enter your question here:',value="What is data science")
-        lang_var=None
+        lang_spec=st.checkbox('Specify Wikipedia language?', value=True)
+        if lang_spec:
+            lang_var_name=st.selectbox('Please specify the language',lang_opt,index=0)
+            lang_var=lang_opt[lang_var_name]           
+        else:
+            lang_var=None    
         
         
         st.write("")
@@ -149,10 +152,8 @@ def app():
         if run_models:    
                       
             if user_query !='':
-                st.subheader('Your answer could be here...')
-                                
-                if lang_var is None:
-                    user_language=detect(user_query)                    
+                st.subheader('Your answer could be here...')                 
+                user_language=detect(user_query) if lang_var is None else lang_var                      
                 wiki = mediawiki.MediaWiki(lang=user_language)
                 results = wiki.search(user_query)
                 
@@ -175,16 +176,15 @@ def app():
     # -----------------------------------------------------------  
     if tw_classifier=='Text summarization':             
         # Clear cache
-        st.legacy_caching.clear_cache()  
+        #st.legacy_caching.clear_cache()  
         run_text_OK = False
 
         #specify data source        
         text_source=st.radio('Select data source for text analysis',['text input','PDF or Word document'],index=1)  
 
         if text_source=='text input':
-            user_sum_text=st.text_area('Please enter or copy your text here', value='STATY  \n\n STATY is growing out of the effort to bring more data insights to university education across all disciplines of the natural and social sciences. It is motivated by the belief that fostering data literacy, creativity and critical thinking are more effective towards innovation, than bringing endless units of introduction to programming to students who find learning programming an overwhelming task. By providing easy access to the methods of classical statistics and machine learning, STATY’s approach is to inspire students to explore issues they are studying in the curriculum directly on real data, practice interpreting the results and check the source code to see how it is done or to improve the code. STATY can be used in the process of teaching and learning data science, demonstrations of theoretical concepts across various disciplines, active learning, promotion of teamwork, research and beyond.', height=600, key = st.session_state['key'] )
-            user_text=user_sum_text
-            
+            user_text=st.text_area('Please enter or copy your text here', value='STATY  \n\n STATY is growing out of the effort to bring more data insights to university education across all disciplines of the natural and social sciences. It is motivated by the belief that fostering data literacy, creativity and critical thinking are more effective towards innovation, than bringing endless units of introduction to programming to students who find learning programming an overwhelming task. By providing easy access to the methods of classical statistics and machine learning, STATY’s approach is to inspire students to explore issues they are studying in the curriculum directly on real data, practice interpreting the results and check the source code to see how it is done or to improve the code. STATY can be used in the process of teaching and learning data science, demonstrations of theoretical concepts across various disciplines, active learning, promotion of teamwork, research and beyond.', height=600, key = st.session_state['key'] )
+                        
             st.write("")
             if len(user_text)>0:  
                 run_text_OK = True 
@@ -711,12 +711,14 @@ def app():
                             sentence=sentences[i]                      
                             ss = sid.polarity_scores(sentence)                       
                             sa_table.loc[i]["Sentence"]=sentence
+                                                      
                             sa_table.loc[i]["neg"]=ss["neg"]
                             sa_table.loc[i]["neu"]=ss["neu"]
                             sa_table.loc[i]["pos"]=ss["neg"]
                             sa_table.loc[i]["compound"]=ss["compound"]
+                           
                             st.session_state['sentiment']=sa_table
-                       
+                        
                     elif user_language=="de": 
                         sa_table = pd.DataFrame(index = range(0, len(sentences)), columns=["Sentence", "pos","neg","neu"]) 
                         
@@ -724,7 +726,7 @@ def app():
                         for i in range(0,len(sentences)):                           
                             sentence=sentences[i] 
                             classes, probs = model.predict_sentiment([sentence], output_probabilities = True)                    
-                            sa_table.loc[i]["Sentence"]=sentence                            
+                            sa_table.loc[i]["Sentence"]=sentence
                             sa_table.loc[i]["pos"]=probs[0][0][1]
                             sa_table.loc[i]["neg"]=probs[0][1][1]
                             sa_table.loc[i]["neu"]=probs[0][2][1]
@@ -890,6 +892,7 @@ def app():
         if add_data_show:
             st.info("Additional data are frequently not available - yfinance is failing to decrypt Yahoo data response.")
         st.markdown("")
+        
        
         dev_expander_perf = st.expander("Stock performance", expanded=True)
         with dev_expander_perf:
