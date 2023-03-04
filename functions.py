@@ -18,6 +18,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from random import randint
 import nltk
+nltk.download('punkt')
 import PyPDF2
 from docx import Document
 from sklearn.feature_extraction.text import CountVectorizer
