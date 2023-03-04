@@ -182,8 +182,9 @@ def app():
         text_source=st.radio('Select data source for text analysis',['text input','PDF or Word document'],index=1)  
 
         if text_source=='text input':
-            user_text=st.text_area('Please enter or copy your text here', value='STATY  \n\n STATY is growing out of the effort to bring more data insights to university education across all disciplines of the natural and social sciences. It is motivated by the belief that fostering data literacy, creativity and critical thinking are more effective towards innovation, than bringing endless units of introduction to programming to students who find learning programming an overwhelming task. By providing easy access to the methods of classical statistics and machine learning, STATY’s approach is to inspire students to explore issues they are studying in the curriculum directly on real data, practice interpreting the results and check the source code to see how it is done or to improve the code. STATY can be used in the process of teaching and learning data science, demonstrations of theoretical concepts across various disciplines, active learning, promotion of teamwork, research and beyond.', height=600, key = st.session_state['key'] )
-                        
+            user_sum_text=st.text_area('Please enter or copy your text here', value='STATY  \n\n STATY is growing out of the effort to bring more data insights to university education across all disciplines of the natural and social sciences. It is motivated by the belief that fostering data literacy, creativity and critical thinking are more effective towards innovation, than bringing endless units of introduction to programming to students who find learning programming an overwhelming task. By providing easy access to the methods of classical statistics and machine learning, STATY’s approach is to inspire students to explore issues they are studying in the curriculum directly on real data, practice interpreting the results and check the source code to see how it is done or to improve the code. STATY can be used in the process of teaching and learning data science, demonstrations of theoretical concepts across various disciplines, active learning, promotion of teamwork, research and beyond.', height=600, key = st.session_state['key'] )
+            user_text=user_sum_text
+            
             st.write("")
             if len(user_text)>0:  
                 run_text_OK = True 
@@ -710,7 +711,10 @@ def app():
                             sentence=sentences[i]                      
                             ss = sid.polarity_scores(sentence)                       
                             sa_table.loc[i]["Sentence"]=sentence
-                            sa_table.loc[i]["neg","neu","pos","compound"]=ss
+                            sa_table.loc[i]["neg"]=ss["neg"]
+                            sa_table.loc[i]["neu"]=ss["neu"]
+                            sa_table.loc[i]["pos"]=ss["neg"]
+                            sa_table.loc[i]["compound"]=ss["compound"]
                             st.session_state['sentiment']=sa_table
                        
                     elif user_language=="de": 
