@@ -18,7 +18,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from random import randint
 import nltk
-nltk.download('punkt')
+nltk.download('punkt') 
 import PyPDF2
 from docx import Document
 from sklearn.feature_extraction.text import CountVectorizer
@@ -39,7 +39,6 @@ from sumy.summarizers.kl import KLSummarizer
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.stemmers import Stemmer 
 from sumy.utils import get_stop_words
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from bs4 import BeautifulSoup
 import requests
 import regex as re
@@ -1442,10 +1441,8 @@ def sumy_summary(text,extr_method, extr_length,user_language):
 #------------------------------------------------------------------------------------------
 #FUNCTION for Abstractive Summary using T5
 
-def t5_summary(text):  
-    model = AutoModelForSeq2SeqLM.from_pretrained('t5-base')
-    tokenizer = AutoTokenizer.from_pretrained('t5-base')
-
+def t5_summary(text,model,tokenizer):  
+    
     tokens_input = tokenizer.encode("summarize: " + text,
                         return_tensors='pt',
                         max_length=tokenizer.model_max_length,
