@@ -35,7 +35,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 def app():
 
     # Clear cache
-    #st.legacy_caching.clear_cache()
+    st.legacy_caching.clear_cache()
 
     # Hide traceback in error messages (comment out for de-bugging)
     #sys.tracebacklimit = 0
