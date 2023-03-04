@@ -887,7 +887,8 @@ def app():
 
         st.markdown("")
         add_data_show=st.checkbox("Get additional data (cashflow, balance sheet etc.)", value = False, key = st.session_state['key'], on_change=in_wid_change)
-        st.info("Additional data are frequently not available - yfinance is failing to decrypt Yahoo data response.")
+        if add_data_show:
+            st.info("Additional data are frequently not available - yfinance is failing to decrypt Yahoo data response.")
         st.markdown("")
        
         dev_expander_perf = st.expander("Stock performance", expanded=True)
