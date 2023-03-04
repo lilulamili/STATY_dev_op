@@ -724,8 +724,10 @@ def app():
                         for i in range(0,len(sentences)):                           
                             sentence=sentences[i] 
                             classes, probs = model.predict_sentiment([sentence], output_probabilities = True)                    
-                            sa_table.loc[i]["Sentence"]=sentence
-                            sa_table.loc[i]["pos","neg","neu"]=[probs[0][0][1],probs[0][1][1],probs[0][2][1]]
+                            sa_table.loc[i]["Sentence"]=sentence                            
+                            sa_table.loc[i]["pos"]=probs[0][0][1]
+                            sa_table.loc[i]["neg"]=probs[0][1][1]
+                            sa_table.loc[i]["neu"]=probs[0][2][1]
                             st.session_state['sentiment']=sa_table
                 if st.session_state['sentiment'] is not None and user_language in ["de", "en"]:
                     sentiment_output = st.expander("Sentiment Analysis", expanded = False)
