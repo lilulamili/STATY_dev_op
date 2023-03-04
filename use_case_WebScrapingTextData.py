@@ -27,6 +27,7 @@ from io import BytesIO
 from sklearn.feature_extraction.text import CountVectorizer
 from difflib import SequenceMatcher
 import nltk
+nltk.download('punkt')
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 #----------------------------------------------------------------------------------------------
