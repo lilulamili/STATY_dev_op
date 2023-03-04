@@ -175,7 +175,7 @@ def app():
     # -----------------------------------------------------------  
     if tw_classifier=='Text summarization':             
         # Clear cache
-        #st.legacy_caching.clear_cache()  
+        st.legacy_caching.clear_cache()  
         run_text_OK = False
 
         #specify data source        
