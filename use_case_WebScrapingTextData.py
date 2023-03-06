@@ -30,9 +30,8 @@ import nltk
 nltk.download('punkt')
 nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-t5_model = AutoModelForSeq2SeqLM.from_pretrained('t5-base')
-t5_tokenizer = AutoTokenizer.from_pretrained('t5-base')
+from sentence_transformers import SentenceTransformer
+
 #----------------------------------------------------------------------------------------------
 
 def app():
@@ -138,6 +137,8 @@ def app():
         
         # Clear cache
         st.legacy_caching.clear_cache()
+        wiki_model = SentenceTransformer('sentence-transformers/bert-base-nli-mean-tokens')
+        
         st.write("")
         lang_opt={'English':'en','Cebuano':'ceb','German':'de','Swedish':'sv','French':'fr','Dutch':'nl','Russian':'ru','Spanish':'es','Italian':'it','Egyptian Arabic':'arz','Polish':'pl','Japanese':'ja','Chinese':'zh','Vietnamese':'vi','Waray':'war','Ukrainian':'uk','Arabic':'ar','Portuguese':'pt','Persian':'fa','Catalan':'ca','Serbian':'sr','Indonesian':'id','Korean':'ko','Norwegian (Bokmål)':'no','Chechen':'ce','Finnish':'fi','Turkish':'tr','Hungarian':'hu','Czech':'cs','Tatar':'tt','Serbo-Croatian':'sh','Romanian':'ro','Southern Min':'zh-min-nan','Basque':'eu','Malay':'ms','Esperanto':'eo','Hebrew':'he','Armenian':'hy','Danish':'da','Bulgarian':'bg','Welsh':'cy','Slovak':'sk','South Azerbaijani':'azb','Estonian':'et','Kazakh':'kk','Belarusian':'be','Simple English':'simple','Minangkabau':'min','Uzbek':'uz','Greek':'el','Croatian':'hr','Lithuanian':'lt','Galician':'gl','Azerbaijani':'az','Urdu':'ur','Slovene':'sl','Georgian':'ka','Norwegian (Nynorsk)':'nn','Hindi':'hi','Thai':'th','Tamil':'ta','Latin':'la','Bengali':'bn','Macedonian':'mk','Asturian':'ast','Cantonese':'zh-yue','Latvian':'lv','Tajik':'tg','Afrikaans':'af','Burmese':'my','Malagasy':'mg','Bosnian':'bs','Marathi':'mr','Occitan':'oc','Albanian':'sq','Low German':'nds','Malayalam':'ml','Belarusian (Taraškievica)':'be-tarask','Kyrgyz':'ky','Telugu':'te','Breton':'br','Swahili':'sw','Ladin':'lld','Newar':'new','Javanese':'jv','Venetian':'vec','Haitian Creole':'ht','Piedmontese':'pms','Western Punjabi':'pnb','Bashkir':'ba','Luxembourgish':'lb','Sundanese':'su','Kurdish (Kurmanji)':'ku','Irish':'ga','Lombard':'lmo','Silesian':'szl','Icelandic':'is','Chuvash':'cv','West Frisian':'fy','Kurdish (Sorani)':'ckb','Tagalog':'tl','Aragonese':'an','Wu Chinese':'wuu','Zaza':'diq','Punjabi':'pa','Scots':'sco','Ido':'io','Volapük':'vo','Yoruba':'yo','Nepali':'ne','Gujarati':'gu','Alemannic German':'als','Kannada':'kn','Interlingua':'ia','Bavarian':'bar','Kotava':'avk','Sicilian':'scn','Bishnupriya Manipuri':'bpy','Quechua (Southern Quechua)':'qu','Crimean Tatar':'crh','Mongolian':'mn','Navajo':'nv','Hausa':'ha','Mingrelian':'xmf','Sinhala':'si','Balinese':'ban','Samogitian':'bat-smg','Pashto':'ps','North Frisian':'frr','Ossetian':'os','Odia':'or','Yakut':'sah','Scottish Gaelic':'gd','Buginese':'bug','Eastern Min':'cdo','Yiddish':'yi','Ilocano':'ilo','Sindhi':'sd','Amharic':'am','Neapolitan':'nap','Limburgish':'li','Gorontalo':'gor','Upper Sorbian':'hsb','Faroese':'fo','Banyumasan':'map-bms','Maithili':'mai','Mazanderani':'mzn','Igbo':'ig','Central Bikol':'bcl','Emilian-Romagnol':'eml','Acehnese':'ace','Shan':'shn','Classical Chinese':'zh-classical','Sanskrit':'sa','Walloon':'wa','Interlingue':'ie','Ligurian':'lij','Assamese':'as','Zulu':'zu','Meadow Mari':'mhr','Western Armenian':'hyw','Hill Mari':'mrj','Fiji Hindi':'hif','Shona':'sn','Banjarese':'bjn','Meitei':'mni','Hakka Chinese':'hak','Khmer':'km','Tarantino':'roa-tara','Somali':'so','Kapampangan':'pam','Rusyn':'rue','Northern Sotho':'nso','Bihari (Bhojpuri)':'bh','Tumbuka':'tum','Santali':'sat','Northern Sámi':'se','Maori':'mi','Erzya':'myv','West Flemish':'vls','Dutch Low Saxon':'nds-nl','Nahuatl':'nah','Sardinian':'sc','Cornish':'kw','Veps':'vep','Kabyle':'kab','Turkmen':'tk','Gan Chinese':'gan','Corsican':'co','Gilaki':'glk','Dagbani':'dag','Moroccan Arabic':'ary','Võro':'fiu-vro','Lhasa Tibetan':'bo','Abkhaz':'ab','Manx':'gv','Franco-Provençal':'frp','Saraiki':'skr','Zeelandic':'zea','Uyghur':'ug','Komi':'kv','Picard':'pcd','Udmurt':'udm','Kashubian':'csb','Maltese':'mt','Guarani':'gn','Aymara':'ay','Inari Sámi':'smn','Norman':'nrm','Lezgian':'lez','Lingua Franca Nova':'lfn','Saterland Frisian':'stq','Livvi-Karelian':'olo','Lao':'lo','Kinyarwanda':'rw','Mirandese':'mwl','Old English':'ang','Friulian':'fur','Romansh':'rm','Judaeo-Spanish':'lad','Konkani (Goan Konkani)':'gom','Pangasinan':'pag','Permyak':'koi','Tuvan':'tyv','Extremaduran':'ext','Lower Sorbian':'dsb','Avar':'av','Doteli':'dty','Lingala':'ln','Chavacano (Zamboanga)':'cbk-zam','Karakalpak':'kaa','Papiamento':'pap','Maldivian':'dv','Ripuarian':'ksh','Gagauz':'gag','Buryat (Russia Buriat)':'bxr','Palatine German':'pfl','Kashmiri':'ks','Twi':'tw','Moksha':'mdf','Pali':'pi','Sakizaya':'szy','Hawaiian':'haw','Awadhi':'awa','Atayal':'tay','Zhuang (Standard Zhuang)':'za','PaO':'blk','Ingush':'inh','Karachay-Balkar':'krc','Kalmyk Oirat':'xal','Pennsylvania Dutch':'pdc','Atikamekw':'atj','Tongan':'to','Aramaic (Syriac)':'arc','Tulu':'tcy','Luganda':'lg','Mon':'mnw','Kabiye':'kbp','Jamaican Patois':'jam','Nauruan':'na','Wolof':'wo','Kabardian':'kbd','Nias':'nia','Novial':'nov','Kikuyu':'ki','NKo':'nqo','Bislama':'bi','Tok Pisin':'tpi','Tetum':'tet','Shilha':'shi','Lojban':'jbo','Aromanian':'roa-rup','Fijian':'fj','Lak':'lbe','Kongo (Kituba)':'kg','Xhosa':'xh','Tahitian':'ty','Old Church Slavonic':'cu','Oromo':'om','Gun':'guw','Seediq':'trv','Sranan Tongo':'srn','Samoan':'sm','French Guianese Creole':'gcr','Southern Altai':'alt','Cherokee':'chr','Latgalian':'ltg','Tswana':'tn','Chewa':'ny','Sotho':'st','Madurese':'mad','Norfuk':'pih','Gothic':'got','Amis':'ami','Romani (Vlax Romani)':'rmy','Bambara':'bm','Ewe':'ee','Venda':'ve','Tsonga':'ts','Fula':'ff','Cheyenne':'chy','Swazi':'ss','Kirundi':'rn','Tyap':'kcg','Akan':'ak','Inuktitut':'iu','Chamorro':'ch','Iñupiaq':'ik','Pontic Greek':'pnt','Adyghe':'ady','Nigerian Pidgin':'pcm','Paiwan':'pwn','Sango':'sg','Dinka':'din','Tigrinya':'ti','Greenlandic':'kl','Dzongkha':'dz','Cree':'cr'}
         
@@ -157,14 +158,26 @@ def app():
             if user_query !='':
                 st.subheader('Your answer could be here...')                 
                 user_language=detect(user_query) if lang_var is None else lang_var                      
+                
+                # clean user query
+                user_query = re.sub(r'[^\w\s]', '', user_query)                            
+                
                 wiki = mediawiki.MediaWiki(lang=user_language)
                 results = wiki.search(user_query)
-                
+                                
                 if len(results) > 0:
+
                     best_match = results[0]                    
                       
                     p = wiki.page(best_match)                 
                     st.write(p.summary)
+                    #st.write(p.content)
+
+                    st.write("Search")
+                    (index,text)=fc.get_topic_index(user_query, wiki_model, results,user_language)
+                    st.write(index)
+                    st.write(text)
+                    st.write("trash")
 
                     st.subheader('Web page preview:')
                     st.text("")
@@ -177,9 +190,13 @@ def app():
     #------------------------------------------------------------
     # Text summarization
     # -----------------------------------------------------------  
-    if tw_classifier=='Text summarization':             
+    if tw_classifier=='Text summarization': 
+                   
         # Clear cache
-        #st.legacy_caching.clear_cache()  
+        #st.legacy_caching.clear_cache() 
+        from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+        t5_model = AutoModelForSeq2SeqLM.from_pretrained('t5-base')
+        t5_tokenizer = AutoTokenizer.from_pretrained('t5-base')  
         run_text_OK = False
 
         #specify data source        
@@ -322,6 +339,9 @@ def app():
     if tw_classifier=='PLOS ONE paper access and summarization':             
         # Clear cache
         st.legacy_caching.clear_cache()  
+        from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+        t5_model = AutoModelForSeq2SeqLM.from_pretrained('t5-base')
+        t5_tokenizer = AutoTokenizer.from_pretrained('t5-base') 
         run_paper_summary=[]
         #set the url of a plos paper
         paper_url = st.text_input("What paper should I summarize for you?","https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0040530")
@@ -729,38 +749,45 @@ def app():
                             st.session_state['sentiment']=sa_table
                         
                     elif user_language=="de": 
-                        sa_table = pd.DataFrame(index = range(0, len(sentences)), columns=["Sentence", "pos","neg","neu"]) 
-                        
-                        model = SentimentModel() 
-                        for i in range(0,len(sentences)):                           
-                            sentence=sentences[i] 
-                            classes, probs = model.predict_sentiment([sentence], output_probabilities = True)                    
-                            sa_table.loc[i]["Sentence"]=sentence
-                            sa_table.loc[i]["pos"]=probs[0][0][1]
-                            sa_table.loc[i]["neg"]=probs[0][1][1]
-                            sa_table.loc[i]["neu"]=probs[0][2][1]
-                            st.session_state['sentiment']=sa_table
+
+                        if fc.is_localhost():                       
+
+                            sa_table = pd.DataFrame(index = range(0, len(sentences)), columns=["Sentence", "pos","neg","neu"]) 
+                            
+                            model = SentimentModel() 
+                            for i in range(0,len(sentences)):                           
+                                sentence=sentences[i] 
+                                classes, probs = model.predict_sentiment([sentence], output_probabilities = True)                    
+                                sa_table.loc[i]["Sentence"]=sentence
+                                sa_table.loc[i]["pos"]=probs[0][0][1]
+                                sa_table.loc[i]["neg"]=probs[0][1][1]
+                                sa_table.loc[i]["neu"]=probs[0][2][1]
+                                st.session_state['sentiment']=sa_table
+                             
                 if st.session_state['sentiment'] is not None and user_language in ["de", "en"]:
                     sentiment_output = st.expander("Sentiment Analysis", expanded = False)
                     with sentiment_output:
-                        st.subheader('Sentiment Analysis')
-                        st.write(sa_table.style.set_precision(user_precision))  
-                         # Download link
-                        st.write("")  
-                        output = BytesIO()
-                        excel_file = pd.ExcelWriter(output, engine="xlsxwriter")
-                        sa_table.to_excel(excel_file, sheet_name="sentiment",index=True) 
-                                               
-                        excel_file.save()
-                        excel_file = output.getvalue()
-                        b64 = base64.b64encode(excel_file)
-                        dl_file_name = "SentimentAnalysis.xlsx"
-                        st.markdown(
-                            f"""
-                        <a href="data:file/excel_file;base64,{b64.decode()}" id="button_dl" download="{dl_file_name}">Download sentiment results</a>
-                        """,
-                        unsafe_allow_html=True)
-                        st.write("")            
+                        if user_language=="de" and fc.is_localhost()==False: 
+                            st.info("German sentiment analysis can be performed on local server only!")        
+                        else:
+                            st.subheader('Sentiment Analysis')
+                            st.write(sa_table.style.set_precision(user_precision))  
+                            # Download link
+                            st.write("")  
+                            output = BytesIO()
+                            excel_file = pd.ExcelWriter(output, engine="xlsxwriter")
+                            sa_table.to_excel(excel_file, sheet_name="sentiment",index=True) 
+                                                
+                            excel_file.save()
+                            excel_file = output.getvalue()
+                            b64 = base64.b64encode(excel_file)
+                            dl_file_name = "SentimentAnalysis.xlsx"
+                            st.markdown(
+                                f"""
+                            <a href="data:file/excel_file;base64,{b64.decode()}" id="button_dl" download="{dl_file_name}">Download sentiment results</a>
+                            """,
+                            unsafe_allow_html=True)
+                            st.write("")            
                 #---------------------------------------------------------------------------------
                 # Sentences with specific words
                 #---------------------------------------------------------------------------------
