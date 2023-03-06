@@ -39,9 +39,11 @@ from sumy.summarizers.kl import KLSummarizer
 from sumy.parsers.plaintext import PlaintextParser
 from sumy.nlp.stemmers import Stemmer 
 from sumy.utils import get_stop_words
+import mediawiki
 from bs4 import BeautifulSoup
 import requests
 import regex as re
+import os
 
 
 #----------------------------------------------------------------------------------------------
@@ -260,7 +262,15 @@ def theme_func_light():
     """,
         unsafe_allow_html=True,
     )
+#----------------------------------------------------------------------------------------------
+#FUNCTION FOR HOST CHECK
 
+def is_localhost():
+    #Determines if app is running on the localhost or not
+    
+    localhost_use=True if os.environ.get("BASE_URL", "http://localhost:8501/").startswith("http://localhost") else False
+
+    return localhost_use
 #----------------------------------------------------------------------------------------------
 #FUNCTION FOR DOWNLOAD BUTTON THEME
 
@@ -1452,6 +1462,44 @@ def t5_summary(text,model,tokenizer):
                     num_beams=2)
     summary = tokenizer.decode(summary_ids[0], skip_special_tokens=True)
     return(summary)
+
+#------------------------------------------------------------------------------------------
+# Function for getting a cosine similarity between user_query and Wiki page
+#  
+def get_topic_index(query, model, results,user_language):
+    
+    wiki = mediawiki.MediaWiki(lang=user_language)
+    # Clean the query    
+    query = query.lower()
+    
+    # Get the content of each page and compute the cosine similarity with the query
+    page_content = []
+    for page_id in range(5):
+        match = results[page_id]
+        p = wiki.page(match)                 
+        page_content=p.content
+        
+        # Compute the sentence embeddings for the query and each page
+        query_embedding = model.encode([query])
+        page_embeddings = model.encode(page_content)
+
+        # Compute the cosine similarity between the query and each page
+        similarities = np.dot(query_embedding, np.transpose(page_embeddings))
+        similarities = np.squeeze(similarities)
+
+    # Find the index of the most similar page
+    index = np.argmax(similarities)
+
+    # Get the most likely paragraph where the answer can be found      
+    page = wiki.page(results[index]) 
+    url = page.url
+    html_content = requests.get(url).text
+    soup = BeautifulSoup(html_content, "html.parser")
+    paragraphs = soup.find_all('p')
+    text = ''
+    for paragraph in paragraphs:
+        text += paragraph.text
+    return index, text
 
 
 
