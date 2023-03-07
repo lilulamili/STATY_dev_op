@@ -9,7 +9,7 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import functions as fc
-import os
+import os, platform
 import PyPDF2
 import requests
 import streamlit.components.v1 as components
@@ -465,7 +465,7 @@ def app():
         
         # text processing
         if run_text_OK == True: 
-
+            st.write(platform.processor())
             #detect language           
             user_language=detect(user_text)
            
