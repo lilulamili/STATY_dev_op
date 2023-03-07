@@ -418,6 +418,8 @@ def app():
             l = int(100.0 * float(random_state.randint(60, 120)) / 255.0)
             return "hsl({}, {}%, {}%)".format(h, s, l)    
         
+        st.write("TRASH")
+        st.write(platform.processor())
         #specify data source        
         word_sl=st.radio('Select data source for text analysis',['text input','PDF or Word document','web page'])  
 
@@ -465,8 +467,7 @@ def app():
         
         # text processing
         if run_text_OK == True: 
-            st.write("TRASH")
-            st.write(platform.processor())
+            
             #detect language           
             user_language=detect(user_text)
            
