@@ -268,7 +268,7 @@ def theme_func_light():
 def is_localhost():
     #Determines if app is running on the localhost or not
     
-    localhost_use=True if os.environ.get("BASE_URL", "http://localhost:8501/").startswith("http://localhost") else False
+    localhost_use=False if platform.processor()=="" else True
 
     return localhost_use
 #----------------------------------------------------------------------------------------------
