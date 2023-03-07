@@ -465,6 +465,7 @@ def app():
         
         # text processing
         if run_text_OK == True: 
+            st.write("TRASH")
             st.write(platform.processor())
             #detect language           
             user_language=detect(user_text)
