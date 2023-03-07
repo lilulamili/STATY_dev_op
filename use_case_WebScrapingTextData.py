@@ -419,7 +419,7 @@ def app():
             return "hsl({}, {}%, {}%)".format(h, s, l)    
         
         st.write("TRASH")
-        st.write(platform.processor() is None)
+        st.write(platform.system())
         #specify data source        
         word_sl=st.radio('Select data source for text analysis',['text input','PDF or Word document','web page'])  
 
