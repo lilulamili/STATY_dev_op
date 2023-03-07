@@ -43,7 +43,7 @@ import mediawiki
 from bs4 import BeautifulSoup
 import requests
 import regex as re
-import os
+import os, platform
 
 
 #----------------------------------------------------------------------------------------------
