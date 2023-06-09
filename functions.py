@@ -22,6 +22,8 @@ nltk.download('punkt')
 import PyPDF2
 from docx import Document
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+from sentence_transformers import SentenceTransformer
 from pysummarization.nlpbase.auto_abstractor import AutoAbstractor
 from pysummarization.tokenizabledoc.simple_tokenizer import SimpleTokenizer
 from pysummarization.web_scraping import WebScraping
@@ -266,8 +268,7 @@ def theme_func_light():
 #FUNCTION FOR HOST CHECK
 
 def is_localhost():
-    #Determines if app is running on the localhost or not
-    
+    #Determines if app is running on the localhost or not    
     localhost_use=False if platform.processor()=="" else True
 
     return localhost_use
@@ -928,14 +929,16 @@ def data_summary(data):
         
     # Measures of central tendency
     df_summary_ct = pd.DataFrame(index = ["mean", "mode", "median"], columns = list(data))
-    df_summary_ct.loc["mean"] = data.mean()
+    
+    df_summary_ct.loc["mean"] = data.mean(numeric_only=True)
+    
     df_summary_ct.loc["mode"] = get_mode(data).loc["mode"]
-    df_summary_ct.loc["median"] = data.median()
+    df_summary_ct.loc["median"] = data.median(numeric_only=True)
 
     # Measures of dispersion
     df_summary_mod = pd.DataFrame(index = ["standard deviation", "variance"], columns = list(data))
-    df_summary_mod.loc["standard deviation"] = data.std()
-    df_summary_mod.loc["variance"] = data.var()
+    df_summary_mod.loc["standard deviation"] = data.std(numeric_only=True)
+    df_summary_mod.loc["variance"] = data.var(numeric_only=True)
 
     # Measures of shape
     df_summary_mos = get_shape(data)
@@ -1466,40 +1469,51 @@ def t5_summary(text,model,tokenizer):
 #------------------------------------------------------------------------------------------
 # Function for getting a cosine similarity between user_query and Wiki page
 #  
-def get_topic_index(query, model, results,user_language):
+
+def get_topic_index(query, model, results, user_language):
     
+    # Instantiate MediaWiki object with user's preferred language
     wiki = mediawiki.MediaWiki(lang=user_language)
-    # Clean the query    
+    
+    # Clean the query
     query = query.lower()
     
     # Get the content of each page and compute the cosine similarity with the query
     page_content = []
     for page_id in range(5):
         match = results[page_id]
-        p = wiki.page(match)                 
-        page_content=p.content
-        
-        # Compute the sentence embeddings for the query and each page
-        query_embedding = model.encode([query])
-        page_embeddings = model.encode(page_content)
+        p = wiki.page(match)
+        page_content.append(p.content)
+    
+    # Calculate cosine similarity for each page
+    embeddings = model.encode(page_content)
+    query_embedding = model.encode([query])[0]
+    similarities = cosine_similarity(embeddings, [query_embedding])
+    
+    # Find index of page with highest similarity to query
+    bestmatch_index = similarities.argmax()
+    
+    # Get the content of the page that matches best the query
+    page = wiki.page(results[bestmatch_index])
+    content = page.content
+    
+    # Paragraph based similarity analysis    
+    match_unit = content.split('\n\n')   
+    
+    # Sentence based similarity analysis  
+    #match_unit = nltk.sent_tokenize(content)       
 
-        # Compute the cosine similarity between the query and each page
-        similarities = np.dot(query_embedding, np.transpose(page_embeddings))
-        similarities = np.squeeze(similarities)
+    # Calculate cosine similarity 
+    embeddings = model.encode(match_unit)
+    query_embedding = model.encode([query])[0]
+    similarities = cosine_similarity(embeddings, [query_embedding])
+    
+    # Find index of paragraph with highest similarity to query
+    match_index = similarities.argmax()
+    
+    # Return the paragraph with highest similarity to query
+    return bestmatch_index, match_unit[match_index]
 
-    # Find the index of the most similar page
-    index = np.argmax(similarities)
-
-    # Get the most likely paragraph where the answer can be found      
-    page = wiki.page(results[index]) 
-    url = page.url
-    html_content = requests.get(url).text
-    soup = BeautifulSoup(html_content, "html.parser")
-    paragraphs = soup.find_all('p')
-    text = ''
-    for paragraph in paragraphs:
-        text += paragraph.text
-    return index, text
 
 
 
