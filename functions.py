@@ -19,7 +19,7 @@ import streamlit as st
 from random import randint
 import nltk
 nltk.download('punkt') 
-import PyPDF2
+from pypdf import PdfReader 
 from docx import Document
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -1351,7 +1351,7 @@ def read_pdf_word(uploaded_file):
     if uploaded_file.name.endswith('.pdf'):
         try:
             with BytesIO(uploaded_file.read()) as f:
-                pdf_reader = PyPDF2.PdfReader(f)
+                pdf_reader = PdfReader(f)
                 text=pdf_read(pdf_reader)
                 text_read=True                
         except Exception as e:
@@ -1376,7 +1376,7 @@ def read_pdf_word(uploaded_file):
     return text_read, text       
 
 #------------------------------------------------------------------------------------------
-#FUNCTION for pdf reading using PyPDF2
+#FUNCTION for pdf reading using 
 
 def pdf_read(pdf_reader):
     
