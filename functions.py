@@ -51,12 +51,13 @@ import os, platform
 #----------------------------------------------------------------------------------------------
 #FUNCTION FOR WIDE MODE
 
-def wide_mode_func():
+                       
+def wide_mode_func():    
     max_width_str = f"max-width: 2000px;"
     st.markdown(
         f"""
-    <style>
-    .reportview-container .main .block-container{{
+    <style>    
+    .appview-container .main .block-container{{
         {max_width_str}
     }}
     </style>    

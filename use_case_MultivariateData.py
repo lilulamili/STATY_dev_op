@@ -5591,7 +5591,7 @@ def app():
                             # if sett_hints:
                             #     st.info(str(fc.learning_hints("mod_md_RF_partDep_bin")))
                             # Confusion matrix
-                            st.write("Confusion matrix (rows correspond to predictions):")
+                            st.write("Confusion matrix (columns correspond to predictions):")
                             st.table(model_full_results["RF confusion"])
                             if sett_hints:
                                 st.info(str(fc.learning_hints("mod_md_RF_confu_mult"))) 
@@ -5807,7 +5807,7 @@ def app():
                             # if sett_hints:
                             #     st.info(str(fc.learning_hints("mod_md_ANN_partDep_bin")))
                             # Confusion matrix
-                            st.write("Confusion matrix (rows correspond to predictions):")
+                            st.write("Confusion matrix (columns correspond to predictions):")
                             st.table(model_full_results["ANN confusion"])
                             if sett_hints:
                                 st.info(str(fc.learning_hints("mod_md_ANN_confu_mult"))) 
