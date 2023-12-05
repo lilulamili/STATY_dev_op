@@ -3526,6 +3526,7 @@ def app():
                             fm_rf_figs3_col1, fm_rf_figs3_col2 = st.columns(2)
                             for pd_var in expl_var:
                                 pd_data_rf = pd.DataFrame(columns = [pd_var])
+                                st.write(model_full_results["RF partial dependence"][pd_var])
                                 pd_data_rf[pd_var] = model_full_results["RF partial dependence"][pd_var][1][0]
                                 pd_data_rf["Partial dependence"] = model_full_results["RF partial dependence"][pd_var][0][0]
                                 pd_chart_rf = alt.Chart(pd_data_rf, height = 200).mark_line(color = "darkred").encode(
