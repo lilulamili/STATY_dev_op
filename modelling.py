@@ -2530,6 +2530,9 @@ def model_full(data, data_new, algorithms, MLR_model, MLR_finalPara, LR_finalPar
             for varPd in expl_var:
                 rf_pd[varPd] = rf_partDep[expl_var.index(varPd)]
                 rf_pd_min_max.loc[varPd]["min"] = rf_partDep[expl_var.index(varPd)]["average"].min()
+                st.write(st.write(rf_partDep[expl_var.index(varPd)]["average"])
+                st.write(rf_partDep[expl_var.index(varPd)]["average"][0].min())
+                
                 #rf_pd_min_max.loc[varPd]["min"] = rf_partDep[expl_var.index(varPd)]["average"][0].min()
                 rf_pd_min_max.loc[varPd]["max"] = rf_partDep[expl_var.index(varPd)]["average"].max()   
                 #rf_pd_min_max.loc[varPd]["max"] = rf_partDep[expl_var.index(varPd)][0].max()                    
