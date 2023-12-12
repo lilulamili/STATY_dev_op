@@ -584,9 +584,16 @@ def app():
                 # DATA TRANSFORMATION
 
                 st.markdown("**Data transformation**")
+                
+                                               
                 # Select columns for different transformation types
                 transform_options = df.select_dtypes([np.number]).columns
                 numCat_options = df.columns
+                ohe_options = df.select_dtypes(include=['object', 'category']).columns
+                                                       
+                sb_DM_dTrans_ohe = st.multiselect("Select columns for one hot encoding", ohe_options, on_change=in_wid_change)
+                if len(sb_DM_dTrans_ohe) > 0:
+                    df = fc.var_transform_ohe(df, sb_DM_dTrans_ohe)  
                 sb_DM_dTrans_log = st.multiselect("Select columns to transform with log ", transform_options, on_change=in_wid_change)
                 if sb_DM_dTrans_log is not None: 
                     df = fc.var_transform_log(df, sb_DM_dTrans_log)
@@ -772,6 +779,13 @@ def app():
                 #--------------------------------------------------------------------------------------
                 # DATA TRANSFORMATION
 
+                #ohe
+                if len(sb_DM_dTrans_ohe) > 1:
+                    st.write("-", len(sb_DM_dTrans_ohe), " columns were OHE-transformed:", ', '.join(sb_DM_dTrans_ohe))
+                elif len(sb_DM_dTrans_ohe) == 1:
+                    st.write("-",len(sb_DM_dTrans_ohe), " column was OHE-transformed:", sb_DM_dTrans_ohe[0])
+                elif len(sb_DM_dTrans_ohe) == 0:
+                    st.write("- No column was OHE-transformed!")
                 # log
                 if len(sb_DM_dTrans_log) > 1:
                     st.write("-", len(sb_DM_dTrans_log), " columns were log-transformed:", ', '.join(sb_DM_dTrans_log))
@@ -841,7 +855,7 @@ def app():
         # UPDATED DATA SUMMARY   
 
         # Show only if changes were made
-        if any(v for v in [sb_DM_delCols, sb_DM_dImp_num, sb_DM_dImp_other, sb_DM_dTrans_log, sb_DM_dTrans_sqrt, sb_DM_dTrans_square, sb_DM_dTrans_cent, sb_DM_dTrans_stand, sb_DM_dTrans_norm, sb_DM_dTrans_numCat ] if v is not None) or sb_DM_delDup == "Yes" or sb_DM_delRows_wNA == "Yes" or sb_DM_dTrans_mult != 0 or sb_DM_dTrans_div != 0 or filter_var != "-" or delRows!='-' or keepRows!='-' or len(sb_DM_keepCols) > 0:
+        if any(v for v in [sb_DM_delCols, sb_DM_dImp_num, sb_DM_dImp_other, sb_DM_dTrans_ohe, sb_DM_dTrans_log, sb_DM_dTrans_sqrt, sb_DM_dTrans_square, sb_DM_dTrans_cent, sb_DM_dTrans_stand, sb_DM_dTrans_norm, sb_DM_dTrans_numCat ] if v is not None) or sb_DM_delDup == "Yes" or sb_DM_delRows_wNA == "Yes" or sb_DM_dTrans_mult != 0 or sb_DM_dTrans_div != 0 or filter_var != "-" or delRows!='-' or keepRows!='-' or len(sb_DM_keepCols) > 0:
             dev_expander_dsPost = st.expander("Explore cleaned and transformed data info and stats ", expanded = False)
             with dev_expander_dsPost:
                 if df.shape[1] > 0 and df.shape[0] > 0:
@@ -1118,8 +1132,8 @@ def app():
                         # Check if explanatory variables are numeric
                         expl_var_message_num = False
                         expl_var_message_na = False
-                        if any(a for a in df[expl_var].dtypes if a != "float64" and a != "float32" and a != "int64" and a != "int64"): 
-                            expl_var_not_num = df[expl_var].select_dtypes(exclude=["int64", "int32", "float64", "float32"]).columns
+                        if any(a for a in df[expl_var].dtypes if a != "float64" and a != "float32" and a != "int64" and a != "int64" and a != "bool" and a != "int32"): 
+                            expl_var_not_num = df[expl_var].select_dtypes(exclude=["int64", "int32", "float64", "float32", "bool"]).columns
                             expl_var_message_num = "ERROR: Please exclude non-numeric variables: " + ', '.join(map(str,list(expl_var_not_num)))
                         
                         # Check if NAs are present and delete them automatically (delete before run models button)
@@ -4729,8 +4743,8 @@ def app():
                         # Check if explanatory variables are numeric
                         expl_var_message_num = False
                         expl_var_message_na = False
-                        if any(a for a in df[expl_var].dtypes if a != "float64" and a != "float32" and a != "int64" and a != "int64"): 
-                            expl_var_not_num = df[expl_var].select_dtypes(exclude=["int64", "int32", "float64", "float32"]).columns
+                        if any(a for a in df[expl_var].dtypes if a != "float64" and a != "float32" and a != "int64" and a != "int64" and a != "bool" and a != "int32"): 
+                            expl_var_not_num = df[expl_var].select_dtypes(exclude=["int64", "int32", "float64", "float32","bool"]).columns
                             expl_var_message_num = "ERROR: Please exclude non-numeric variables: " + ', '.join(map(str,list(expl_var_not_num)))
                         
                         # Check if NAs are present and delete them automatically (delete before run models button)
