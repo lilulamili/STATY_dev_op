@@ -58,12 +58,7 @@ hide_footer_style = """
 """
 st.markdown(hide_footer_style, unsafe_allow_html=True)
 
-hide_github_icon = """
-#GithubIcon {
-  visibility: hidden;
-}
-"""
-st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 
 # Title
 components.html("""
@@ -135,6 +130,12 @@ hide_streamlit_style = """
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
+hide_github_icon = """
+#st-community:hover .st-community-icon {
+  display: none;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 
 # Decoration bar color
