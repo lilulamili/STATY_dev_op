@@ -47,7 +47,7 @@ st.set_page_config(
     page_title = "STATY",
     page_icon = staty_favi,
     layout = "centered",
-    initial_sidebar_state = "expanded",
+    initial_sidebar_state ="collapsed",
     
 )   
 
