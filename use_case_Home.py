@@ -58,9 +58,6 @@ def app():
             display: none !important;
             color: white;
         }}
-        span[id*="GithubIcon"]  {{
-            display: none !important;            
-        }}
         section[data-testid*="stSidebar"] > div {{
             background-color: rgb(49, 51, 63);
         }}
@@ -217,6 +214,18 @@ def app():
         """,
             unsafe_allow_html=True,
         )  
+
+    css_code = """
+    <style>
+    #st-community:hover .st-community-icon {  
+            display: none !important;
+        }
+    }
+    </style>
+    """
+
+    # Use st.markdown to render CSS
+    st.markdown(css_code, unsafe_allow_html=True)
 
     # st.markdown(
     #     f"""
