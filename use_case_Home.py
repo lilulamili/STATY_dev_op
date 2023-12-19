@@ -217,10 +217,7 @@ def app():
 
     css_code = """
     <style>
-    #st-community:hover .st-community-icon {  
-            display: none !important;
-        }
-    }
+    div[data-testid="stToolbar"] { display: none !important; }
     </style>
     """
 
