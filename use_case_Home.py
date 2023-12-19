@@ -40,8 +40,8 @@ def app():
 
     # Check if wide mode
     if sett_wide_mode:
-        #fc.wide_mode_func()
-        st.empty()
+        fc.wide_mode_func()
+        #st.empty()
 
     # Check theme
     if sett_theme == "Dark":
@@ -226,11 +226,18 @@ def app():
     #     unsafe_allow_html=True
     # )
 
-    hide_github_icon = """
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob, .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137, .viewerBadge_text__1JaDK{ display: none; } #MainMenu{ visibility: hidden; } footer { visibility: hidden; } header { visibility: hidden; }
-
+    st.markdown(
     """
-    st.markdown(hide_github_icon, unsafe_allow_html=True)
+    <style>
+    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
+    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
+    .viewerBadge_text__1JaDK {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+    )
     #st.markdown("You don’t need any programming skills to get started - STATY will do data mining and machine learning for you, present you great visualisations of your data and will boost your curiosity to explore more. ")
     st.write("To get started, open the menu on the left, or check the intro video!")
     
