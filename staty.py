@@ -57,7 +57,12 @@ hide_footer_style = """
 .reportview-container .main footer {visibility: hidden;}   
 """
 st.markdown(hide_footer_style, unsafe_allow_html=True)
-
+css_code = """
+    <style>
+    div[data-testid="stToolbar"] { display: none !important; }
+    </style>
+    """
+st.markdown(css_code, unsafe_allow_html=True)
 
 
 # Title
