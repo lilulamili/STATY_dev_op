@@ -55,9 +55,15 @@ st.set_page_config(
 hide_footer_style = """
 <style>
 .reportview-container .main footer {visibility: hidden;}   
-#GithubIcon {visibility: hidden;} 
 """
 st.markdown(hide_footer_style, unsafe_allow_html=True)
+
+hide_github_icon = """
+#GithubIcon {
+  visibility: hidden;
+}
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 # Title
 components.html("""
