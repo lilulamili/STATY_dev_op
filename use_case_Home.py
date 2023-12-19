@@ -58,6 +58,9 @@ def app():
             display: none !important;
             color: white;
         }}
+        span[id*="GithubIcon"]  {{
+            display: none !important;            
+        }}
         section[data-testid*="stSidebar"] > div {{
             background-color: rgb(49, 51, 63);
         }}
