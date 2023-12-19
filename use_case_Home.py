@@ -19,6 +19,13 @@ def app():
     
     #------------------------------------------------------------------------------------------
     # SETTINGS
+    css_code = """
+    <style>
+    div[data-testid="stToolbar"] { display: none !important; }
+    </style>
+    """
+   
+    st.markdown(css_code, unsafe_allow_html=True)
 
     settings_expander=st.sidebar.expander('Settings')
     with settings_expander:
@@ -215,14 +222,7 @@ def app():
             unsafe_allow_html=True,
         )  
 
-    css_code = """
-    <style>
-    div[data-testid="stToolbar"] { display: none !important; }
-    </style>
-    """
-
-    # Use st.markdown to render CSS
-    st.markdown(css_code, unsafe_allow_html=True)
+   
 
     # st.markdown(
     #     f"""
