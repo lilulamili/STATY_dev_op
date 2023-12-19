@@ -40,8 +40,6 @@ from PIL import Image
 
 staty_favi =  "default data/favicon.png"
 
-
-
 # Define page setting
 st.set_page_config(
     page_title = "STATY",
@@ -51,18 +49,19 @@ st.set_page_config(
     
 )   
 
-
-hide_footer_style = """
-<style>
-.reportview-container .main footer {visibility: hidden;}   
-"""
-st.markdown(hide_footer_style, unsafe_allow_html=True)
-css_code = """
+change_header_style = """
     <style>
     div[data-testid="stToolbar"] { display: none !important; }
     </style>
     """
-st.markdown(css_code, unsafe_allow_html=True)
+st.markdown(change_header_style, unsafe_allow_html=True)
+
+change_footer_style = """
+<style>
+.reportview-container .main footer {visibility: hidden;}   
+"""
+st.markdown(change_footer_style, unsafe_allow_html=True)
+
 
 
 # Title
@@ -134,13 +133,6 @@ hide_streamlit_style = """
     footer {visibility: hidden;}
     </style>
 """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-hide_github_icon = """
-#st-community:hover .st-community-icon {
-  display: none;
-}
-"""
-st.markdown(hide_github_icon, unsafe_allow_html=True)
 
 
 # Decoration bar color
