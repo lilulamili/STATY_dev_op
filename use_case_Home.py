@@ -226,7 +226,12 @@ def app():
     #     unsafe_allow_html=True
     # )
 
-
+    hide_github_icon = """
+        #GithubIcon {
+    visibility: hidden;
+    }
+    """
+    st.markdown(hide_github_icon, unsafe_allow_html=True)
     #st.markdown("You don’t need any programming skills to get started - STATY will do data mining and machine learning for you, present you great visualisations of your data and will boost your curiosity to explore more. ")
     st.write("To get started, open the menu on the left, or check the intro video!")
     
@@ -248,7 +253,7 @@ def app():
         st.markdown("**Background and motivation**")
         st.markdown("The digital transformation has a significant impact on the competencies in the working world of tomorrow. The need for data literacy and critical data awareness has become obvious and calls for an effective response in higher education of natural and social sciences. However, active usage of data tools in undergraduate and graduate programs requires that both students and teachers have either good programming skills, or that they have to familiarize themselves with sometimes cumbersome software solutions. Students with excellent programming skills are an exception, few gain some programming skills at the cost of understanding the methodology, while the majority of students leave universities without basic data literacy skills.")
 
-        st.write("STATY is growing out of the effort to bring more data insights to university education across all disciplines of the natural and social sciences. It is motivated by the belief that fostering data literacy, creativity and critical thinking are more effective towards innovation, than bringing endless units of introduction to programming to students who find  learning programming an overwhelming task. By providing easy access to the methods of classical statistics and machine learning, STATY’s approach is to inspire students to explore issues  they are studying in the curriculum directly on real data, practice interpreting the results and check the source code to see how it is done or to improve the code. ")
+        st.write("STATY is growing out of the effort to bring more data insights to university education across all disciplines of the natural and social sciences. It is motivated by the belief that fostering data literacy, creativity and critical thinking is crucial in preparing students for the demands of the modern data-driven working world. By providing easy access to the methods of classical statistics and machine learning, STATY’s approach is to inspire students to explore issues  they are studying in the curriculum directly on real data, practice interpreting the results and check the source code to see how it is done or to improve the code. ")
         st.write("")
 
         st.write("STATY can be used in the process of teaching and learning data science, demonstrations of theoretical concepts across various disciplines, active learning, promotion of teamwork, research and beyond.")
@@ -271,7 +276,7 @@ def app():
         st.write("")
 
         st.markdown("**Interesting to know**")
-        st.write("Before STATY, we have never written a single line of code in Python. The research environments in which we lived so far are using languages such as Fortran, IDL, R and C++. To check Python’s suitability for STATY we did a short experiment. We tried to develop a STATY prototype with all the basic app-features such as data upload per drag and drop, user selection of variables and machine learning methods, model evaluation and comparison of the  goodness of fit statistics. Despite absolutely zero experience with Python, the app was ready in 2,5h! This experiment has given us a clear path towards STATY development – Python! We didn’t regret it - the first version of STATY was developed in 2,5 months! This said, some lines of code are probably awfully un-elegant!") 
+        st.write("Before STATY, we have never written a single line of code in Python. The research environments in which we lived so far are using languages such as MATLAB, C++, R and Fortran. To check Python’s suitability for STATY we did a short experiment. We tried to develop a STATY prototype with all the basic app-features such as data upload per drag and drop, user selection of variables and machine learning methods, model evaluation and comparison of the  goodness of fit statistics. Despite absolutely zero experience with Python, the app was ready in 2,5h! This experiment has given us a clear path towards STATY development – Python! We didn’t regret it - the first version of STATY was developed in 2,5 months! This said, some lines of code are probably awfully un-elegant!") 
         st.write("")
 
         st.markdown("**Citation**")

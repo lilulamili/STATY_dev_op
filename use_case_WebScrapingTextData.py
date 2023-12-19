@@ -212,17 +212,16 @@ def app():
         elif text_source=="PDF or Word document":           
             #upload a document
             uploaded_file = st.file_uploader("Upload your document ", type=["pdf","docx", "doc"])
-            if uploaded_file==None:
-                st.info("Default file is a pdf of a Wikipedia article on data science (English)")    
-            
-            if uploaded_file is None:                           
+             
+            if uploaded_file is None:  
+                st.info("Default file is a pdf of a Wikipedia article on data science (English)")                             
                 pdf_reader = PdfReader("default data/Data_science.pdf")
                 user_text=fc.pdf_read(pdf_reader)
                 run_text_OK = True                
             else:
                 #read pdf or a Word document
                 (run_text_OK,user_text)=fc.read_pdf_word(uploaded_file) 
-       
+                
         
         # Summarization settings and processing  
         if run_text_OK == True: 
@@ -458,16 +457,16 @@ def app():
         elif word_sl=="PDF or Word document":           
             #upload a document
             uploaded_file = st.file_uploader("Upload your document ", type=["pdf","docx", "doc"])
-            if uploaded_file==None:
-                st.info("Default file is a pdf of a Wikipedia article on data science (English)")    
             
             if uploaded_file is None:
+                st.info("Default file is a pdf of a Wikipedia article on data science (English)")    
                 pdf_reader = PdfReader("default data/Data_science.pdf")
                 user_text=fc.pdf_read(pdf_reader)
                 run_text_OK = True                
             else:
                 #read pdf or a Word document
                 (run_text_OK,user_text)=fc.read_pdf_word(uploaded_file) 
+                
 
         elif word_sl=='web page':
             user_path_wp = st.text_input("What web page should I analyse?","https://en.wikipedia.org/wiki/Data_mining")
@@ -1132,7 +1131,7 @@ def app():
                 twitter_objects = load_data(uploaded_file) 
                 
                 data_available = True
-                st.write("data read")
+                
         # -------------------------------------------------------------------
 
         if data_available:
@@ -1219,7 +1218,7 @@ def app():
                 
                 #custom hashtags
                 unique_hashtags=twitter_objects['hashtags'].str.split('|').explode().unique()
-                user_hash_sel=st.multiselect("Select hashtagss",options=unique_hashtags)
+                user_hash_sel=st.multiselect("Select hashtags",options=unique_hashtags)
                 if user_hash_sel:                             
                     hashtag_filter=twitter_objects['hashtags'].str.split('|').apply(lambda x: any(hashtag in user_hash_sel for hashtag in x))
                     twitter_objects=twitter_objects[hashtag_filter]
