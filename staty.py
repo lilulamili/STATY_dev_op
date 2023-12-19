@@ -50,22 +50,12 @@ st.set_page_config(
     initial_sidebar_state = "expanded",
     
 )   
-st.markdown(
-    """
-    <style>
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
-    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK {
-        display: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
+
 
 hide_footer_style = """
 <style>
-.reportview-container .main footer {visibility: hidden;}    
+.reportview-container .main footer {visibility: hidden;}   
+#GithubIcon {visibility: hidden;} 
 """
 st.markdown(hide_footer_style, unsafe_allow_html=True)
 
