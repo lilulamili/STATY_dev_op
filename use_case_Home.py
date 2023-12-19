@@ -226,18 +226,7 @@ def app():
     #     unsafe_allow_html=True
     # )
 
-    st.markdown(
-    """
-    <style>
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
-    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK {
-        display: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-    )
+    
     #st.markdown("You don’t need any programming skills to get started - STATY will do data mining and machine learning for you, present you great visualisations of your data and will boost your curiosity to explore more. ")
     st.write("To get started, open the menu on the left, or check the intro video!")
     
