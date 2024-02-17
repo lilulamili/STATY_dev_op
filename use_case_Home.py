@@ -231,7 +231,7 @@ def app():
     
     #st.markdown("You don’t need any programming skills to get started - STATY will do data mining and machine learning for you, present you great visualisations of your data and will boost your curiosity to explore more. ")
     st.write("To get started, open the menu on the left, or check the intro video!")
-    
+    st.write("Hej Dada!")
     
     staty_video =open("default data/Staty_web.mp4", 'rb')        
     staty_video_bytes=staty_video.read()
