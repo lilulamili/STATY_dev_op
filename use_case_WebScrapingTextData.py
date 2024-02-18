@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import functions as fc
 import os
+import sys
 from pypdf import PdfReader 
 import requests
 import streamlit.components.v1 as components
@@ -42,7 +43,7 @@ def app():
     #st.runtime.legacy_caching.clear_cache()
 
     # Hide traceback in error messages (comment out for de-bugging)
-    #sys.tracebacklimit = 0
+    sys.tracebacklimit = 1000
 
     # workaround for Firefox bug- hide the scrollbar while keeping the scrolling functionality
     st.markdown("""
@@ -502,7 +503,7 @@ def app():
            
             # Basic text processing:    
             text_cv_fit=text_cv.fit_transform([user_text])
-            wordcount= pd.DataFrame(text_cv_fit.toarray().sum(axis=0), index=text_cv.get_feature_names(),columns=["Word count"])
+            wordcount= pd.DataFrame(text_cv_fit.toarray().sum(axis=0), index=text_cv.get_feature_names_out(),columns=["Word count"])
             word_sorted=wordcount.sort_values(by=["Word count"], ascending=False)
            
             text_prep_options=['lowercase',
@@ -616,6 +617,7 @@ def app():
                     st.subheader('Word count') 
                     
                     #calculate word frequency - stop words exluded:
+                    
                     word_sorted=fc.cv_text(user_text, word_stopwords, 1,user_precision,number_remove)
                                                          
                     st.write("")
@@ -972,25 +974,24 @@ def app():
             st.info("Select at least one ticker")
         else: 
             run_yahoo = st.button("Press to start stock data analysis...")
-            if run_yahoo:                     
-                
-                #-----------------------------------
-                #check if the ticker exists 
-                #-----------------------------------                
-                if len(second_stock)>0:
-                    stock_data2 = yf.Ticker(second_stock)  
-                    if len(stock_data2.info)<=1:
-                        err_msg="Error: Ticker symbol '" + second_stock +  "' may not exist. Double-check that you've entered the ticker symbol accurately"
-                        second_stock="-"                                               
-                        st.error(err_msg)
-                    else:
-                        sel_stock.append(second_stock)
-                   
-                else:                                     
-                    second_stock="-"                    
-                    
+            if run_yahoo:                   
                 st.session_state['run_yahoo']=run_yahoo
-      
+
+
+        #-----------------------------------
+        #check if the ticker exists 
+        #-----------------------------------                
+        if len(second_stock)>0:
+            stock_data2 = yf.Ticker(second_stock)  
+            if len(stock_data2.info)<=1:
+                err_msg="Error: Ticker symbol '" + second_stock +  "' may not exist. Double-check that you've entered the ticker symbol accurately"
+                second_stock="-"                                               
+                st.error(err_msg)
+            else:
+                sel_stock.append(second_stock)
+                   
+        else:                                     
+            second_stock="-"      
        #------------------------------------------------------------------
        # Output
        #---------------------------------------------------------------                  
@@ -998,7 +999,6 @@ def app():
             st.subheader('Stock data info')
             dev_expander_perf = st.expander("Daily data", expanded=True)
             with dev_expander_perf:
-                
                 #get data for a selected ticker symbol:
                 for stocks in sel_stock:                        
                     stock_data = yf.Ticker(stocks)
@@ -1039,16 +1039,13 @@ def app():
                         for stocks in sel_stock:                                     
                             try:                                 
                                 stock_data_cf = yf.Ticker(stocks).cashflow
+                                stock_data_cf.columns = pd.to_datetime(stock_data_cf.columns).year 
+                                st.subheader(stocks)  
+                                st.write(stock_data_cf)
                             except Exception as e:
                                 st.error(f"Error fetching data: {e}")    
-                        
-                            stock_data_cf.columns = pd.to_datetime(stock_data_cf.columns).year 
-                            st.subheader(stocks)  
-                            st.write(stock_data_cf)
-
-                       
-                
-                #-------------------------------------------------
+                                                    
+              #-------------------------------------------------
                 # Balance Sheet
                 #-------------------------------------------------                        
                 if 'Balance Sheet' in tb_output:
@@ -1057,11 +1054,12 @@ def app():
                         for stocks in sel_stock:                                     
                             try:                                 
                                 stock_data_bs = yf.Ticker(stocks).balance_sheet
+                                stock_data_bs.columns = pd.to_datetime(stock_data_bs.columns).year 
+                                st.subheader(stocks)  
+                                st.write(stock_data_bs)
                             except Exception as e:
                                 st.error(f"Error fetching data: {e}")    
-                            stock_data_bs.columns = pd.to_datetime(stock_data_bs.columns).year 
-                            st.subheader(stocks)  
-                            st.write(stock_data_bs)
+                            
                         
 
                 #-------------------------------------------------
@@ -1073,11 +1071,12 @@ def app():
                         for stocks in sel_stock:                                     
                             try:                                 
                                 stock_data_fi = yf.Ticker(stocks).financials
+                                stock_data_fi.columns = pd.to_datetime(stock_data_fi.columns).year 
+                                st.subheader(stocks)  
+                                st.write(stock_data_fi) 
                             except Exception as e:
                                 st.error(f"Error fetching data: {e}")    
-                            stock_data_fi.columns = pd.to_datetime(stock_data_fi.columns).year 
-                            st.subheader(stocks)  
-                            st.write(stock_data_fi)                       
+                                                  
                         
                     
                 #-------------------------------------------------------    
