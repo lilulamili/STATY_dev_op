@@ -273,17 +273,17 @@ def app():
                         #Abstractive summary T5-base
                         progress += 1 # mask the slow process
                         sum_bar.progress(progress/progress_len)
-                        #if fc.is_localhost(): 
-                        if ab_sumar:    
-                            from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-                            t5_model = AutoModelForSeq2SeqLM.from_pretrained('t5-base')
-                            t5_tokenizer = AutoTokenizer.from_pretrained('t5-base') 
-                            t5_summary=fc.t5_summary(user_text,t5_model,t5_tokenizer) 
-                            st.subheader("Abstractive summarization")                 
-                            T5_output = st.expander("T5-base", expanded = False)
-                            with T5_output:
-                                st.write("**Abstractive summarization using Google's [T5](https://huggingface.co/t5-base)**")
-                                st.write(t5_summary)
+                        if fc.is_localhost(): 
+                            if ab_sumar:    
+                                from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+                                t5_model = AutoModelForSeq2SeqLM.from_pretrained('t5-base')
+                                t5_tokenizer = AutoTokenizer.from_pretrained('t5-base') 
+                                t5_summary=fc.t5_summary(user_text,t5_model,t5_tokenizer) 
+                                st.subheader("Abstractive summarization")                 
+                                T5_output = st.expander("T5-base", expanded = False)
+                                with T5_output:
+                                    st.write("**Abstractive summarization using Google's [T5](https://huggingface.co/t5-base)**")
+                                    st.write(t5_summary)
                         
                         progress += 1
                         sum_bar.progress(progress/progress_len)
