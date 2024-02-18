@@ -548,8 +548,8 @@ def app():
                 if st.checkbox('Add additional stop words', value = False): 
                     user_stopwords=st.text_area('Please enter or copy additional stop words here', value='', height=200 )
                     if len(user_stopwords)>0:                                        
-                        added_stopwords=fc.get_stop_words(user_stopwords)
-                        word_stopwords=word_stopwords+added_stopwords
+                        added_stopwords=fc.get_stop_words(user_stopwords)                        
+                        word_stopwords=word_stopwords+added_stopwords.tolist()
             elif stopword_selection=="Specify stop words":
                 word_stopwords=[]
                 user_stopwords=st.text_area('Please enter or copy stop words here', value='', height=200 )
@@ -995,7 +995,6 @@ def app():
        #------------------------------------------------------------------
        # Output
        #---------------------------------------------------------------                  
-        
         if st.session_state['run_yahoo'] is not None:
             st.subheader('Stock data info')
             dev_expander_perf = st.expander("Daily data", expanded=True)
@@ -1401,7 +1400,8 @@ def app():
                         file_name=f"{savename}.html",
                         mime="text/html"
                     )
-                    components.html(htmlstring, width=2000, height=1024, scrolling=True)
+                    
+                    components.html(htmlstring, width=3000, height=2000, scrolling=True)
                 
                 # Sentiment Analysis
                 sent_twitter = twitter_objects[twitter_objects['lang'].isin(['en'])]

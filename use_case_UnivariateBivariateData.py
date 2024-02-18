@@ -49,7 +49,7 @@ def app():
     st.runtime.legacy_caching.clear_cache()
 
     # Hide traceback in error messages (comment out for de-bugging)
-    sys.tracebacklimit = 100 # 0 
+    sys.tracebacklimit = 0
 
     # Show altair tooltip when full screen
     st.markdown('<style>#vg-tooltip-element{z-index: 1000051}</style>',unsafe_allow_html=True)
@@ -1760,10 +1760,11 @@ def app():
                 excel_file = pd.ExcelWriter(output, engine="xlsxwriter")
                               
 
-                cont_extra=st.checkbox("Show marginal frequencies", value = False)        
+                
                 
                 if st.checkbox("Show data for contingency analysis", value = False):        
                     st.write(df)
+                cont_extra=st.checkbox("Analyse marginal frequencies", value = False)        
                 cont_data_output=st.checkbox("Include data for contingency analysis in the output file", value = False)
                 
                 #xls write

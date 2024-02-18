@@ -1825,7 +1825,7 @@ def model_full(data, data_new, algorithms, MLR_model, MLR_finalPara, LR_finalPar
             # Information
             rf_reg_inf.loc["Base estimator"] = full_model_rf_sk.base_estimator_
             rf_reg_inf.loc["Estimators"] = len(full_model_rf_sk.estimators_)
-            rf_reg_inf.loc["Features"] = full_model_rf_sk.n_features_
+            rf_reg_inf.loc["Features"] = full_model_rf_sk.n_features_in_
             rf_reg_inf.loc["OOB score"] = full_model_rf_sk.oob_score_
             # Feature importances (RF method)
             rf_featImp = full_model_rf_sk.feature_importances_
@@ -1897,9 +1897,9 @@ def model_full(data, data_new, algorithms, MLR_model, MLR_finalPara, LR_finalPar
 
             # Extract essential results from model
             # Information
-            brt_reg_inf.loc["Classes"] = full_model_brt_sk.n_classes_
+            #brt_reg_inf.loc["Classes"] = full_model_brt_sk.n_classes_
             brt_reg_inf.loc["Estimators"] = full_model_brt_sk.n_estimators_
-            brt_reg_inf.loc["Features"] = full_model_brt_sk.n_features_
+            brt_reg_inf.loc["Features"] = full_model_brt_sk.n_features_in_
             brt_reg_inf.loc["Loss function"] = full_model_brt_sk.loss
             # Feature importances (BRT method)
             brt_featImp = full_model_brt_sk.feature_importances_
@@ -2515,7 +2515,7 @@ def model_full(data, data_new, algorithms, MLR_model, MLR_finalPara, LR_finalPar
             # Information
             rf_reg_inf.loc["Base estimator"] = full_model_rf_sk.base_estimator_
             rf_reg_inf.loc["Estimators"] = len(full_model_rf_sk.estimators_)
-            rf_reg_inf.loc["Features"] = full_model_rf_sk.n_features_
+            rf_reg_inf.loc["Features"] = full_model_rf_sk.n_features_in_
             rf_reg_inf.loc["OOB score"] = full_model_rf_sk.oob_score_
             # Feature importances (RF method)
             rf_featImp = full_model_rf_sk.feature_importances_
@@ -2617,7 +2617,7 @@ def model_full(data, data_new, algorithms, MLR_model, MLR_finalPara, LR_finalPar
             # Information
             brt_reg_inf.loc["Classes"] = full_model_brt_sk.n_classes_
             brt_reg_inf.loc["Estimators"] = full_model_brt_sk.n_estimators_
-            brt_reg_inf.loc["Features"] = full_model_brt_sk.n_features_
+            brt_reg_inf.loc["Features"] = full_model_brt_sk.n_features_in_
             brt_reg_inf.loc["Loss function"] = full_model_brt_sk.loss
             # Feature importances (BRT method)
             brt_featImp = full_model_brt_sk.feature_importances_
@@ -2874,7 +2874,7 @@ def model_full(data, data_new, algorithms, MLR_model, MLR_finalPara, LR_finalPar
             # Information
             rf_reg_inf.loc["Base estimator"] = full_model_rf_sk.base_estimator_
             rf_reg_inf.loc["Estimators"] = len(full_model_rf_sk.estimators_)
-            rf_reg_inf.loc["Features"] = full_model_rf_sk.n_features_
+            rf_reg_inf.loc["Features"] = full_model_rf_sk.n_features_in_
             rf_reg_inf.loc["OOB score"] = full_model_rf_sk.oob_score_
             # Feature importances (RF method)
             rf_featImp = full_model_rf_sk.feature_importances_

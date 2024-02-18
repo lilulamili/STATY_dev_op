@@ -62,7 +62,17 @@ change_footer_style = """
 """
 st.markdown(change_footer_style, unsafe_allow_html=True)
 
-
+change_expander_style = """
+    <style>
+[data-testid="stExpander"] details {
+    #border-style: none; 
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    }
+</style>
+    """
+st.markdown(change_expander_style, unsafe_allow_html=True)
 
 # Title
 components.html("""
