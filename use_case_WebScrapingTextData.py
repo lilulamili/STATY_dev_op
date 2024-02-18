@@ -995,6 +995,7 @@ def app():
        #------------------------------------------------------------------
        # Output
        #---------------------------------------------------------------                  
+        st.write("trash")
         if st.session_state['run_yahoo'] is not None:
             st.subheader('Stock data info')
             dev_expander_perf = st.expander("Daily data", expanded=True)
