@@ -43,7 +43,7 @@ def app():
     #st.runtime.legacy_caching.clear_cache()
 
     # Hide traceback in error messages (comment out for de-bugging)
-    sys.tracebacklimit = 1000
+    #sys.tracebacklimit = 0
 
     # workaround for Firefox bug- hide the scrollbar while keeping the scrolling functionality
     st.markdown("""
@@ -1333,7 +1333,7 @@ def app():
                             G.build_d3dict(private=True)
 
                         with st.spinner("Writing html..."):
-                            savename = "interaction_network"
+                            savename = "interaction_network"+ "_" + interaction_type
                             htmlstring = G.write_html()
                         net_run=True                 
                            
@@ -1392,16 +1392,19 @@ def app():
                         
             #Display the network and the tweet-net explorer
             if net_run==True:                      
-                with st.expander(network_type, expanded=False):                                      
-
-                    st.download_button(
-                        "Download " +network_type,
-                        data=htmlstring,
-                        file_name=f"{savename}.html",
-                        mime="text/html"
-                    )
+                st.header(network_type)                                 
+                st.write("Download the file and open it in a browser for further analysis!")    
+                st.download_button(
+                    "Download " +network_type + " "+ (interaction_type if network_type=='Interaction Network' else ""),
+                    data=htmlstring,
+                    file_name=f"{savename}.html",
+                    mime="text/html"
+                )
                     
-                    components.html(htmlstring, width=3000, height=2000, scrolling=True)
+                   
+                 
+                    #components.iframe(path_to_html, width=3000, height=2000, scrolling=True)
+                    #components.html(htmlstring, width=3000, height=2000, scrolling=True)
                 
                 # Sentiment Analysis
                 sent_twitter = twitter_objects[twitter_objects['lang'].isin(['en'])]
