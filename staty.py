@@ -52,6 +52,7 @@ st.set_page_config(
 change_header_style = """
     <style>
     div[data-testid="stToolbar"] { display: none !important; }
+    div[data-testid="stToolbarActions"] { display: none !important; }
     </style>
     """
 #st.markdown(change_header_style, unsafe_allow_html=True)
