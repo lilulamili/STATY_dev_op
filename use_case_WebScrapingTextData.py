@@ -30,6 +30,7 @@ from difflib import SequenceMatcher
 import nltk
 nltk.download('punkt')
 nltk.download('vader_lexicon')
+nltk.download('wordnet')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from sentence_transformers import SentenceTransformer
 from streamlit_js_eval import streamlit_js_eval
@@ -503,9 +504,12 @@ def app():
            
             # Basic text processing:    
             text_cv_fit=text_cv.fit_transform([user_text])
+            
+            
             wordcount= pd.DataFrame(text_cv_fit.toarray().sum(axis=0), index=text_cv.get_feature_names_out(),columns=["Word count"])
             word_sorted=wordcount.sort_values(by=["Word count"], ascending=False)
-           
+            
+
             text_prep_options=['lowercase',
                                 'remove whitespaces',
                                 'remove abbreviations',
@@ -521,10 +525,13 @@ def app():
                                 'remove html tags', 
                                 'remove emails']                    
             text_prep_ops=st.multiselect('Select text pre-processing options',text_prep_options,text_prep_selection)
+            
             number_remove= False # don't remove within cv_text function
-                                 
+            
+            root_selection=st.selectbox("Select additional NLP options",['-',"stemming (Porter)","stemming (snowball)","lemmatization"], index=0,help="Stemming and Lemmatization reduce words to their base form for better analysis. Stemming chops off affixes while Lemmatization considers context. For example, the lemma of 'better' is 'good'.  \n  If selected, they will be considered for NLP metrics, but not for sentiment analysis or n-grams.")                    
+            
             #Stop words handling:
-            stopword_selection=st.selectbox("Select stop word option",["No stop words (use all words)","Select stop words", "Use a built-in list of stop words in German", "Use a built-in list of stop words in English", "Specify stop words"], index=3, key=st.session_state['key'])
+            stopword_selection=st.selectbox("Select stop word option",["No stop words (use all words)","Select stop words", "Use a built-in list of stop words in German", "Use a built-in list of stop words in English", "Specify stop words"], index=3)
             
             if stopword_selection=="No stop words (use all words)":
                 word_stopwords=[] 
@@ -606,8 +613,9 @@ def app():
                 progress = 0
 
                 #Text preprocessing
-                user_text=fc.text_preprocessing(user_text,text_prep_ops,user_language)
-                                
+                user_text,user_text_basic=fc.text_preprocessing(user_text,text_prep_ops,root_selection,user_language)
+                #user_text_basic - text after stemming or lemmatization   
+                #user_text - text before stemming or lemmatization            
                 #---------------------------------------------------------------------------------
                 # Basic NLP metrics and visualisations
                 #---------------------------------------------------------------------------------
@@ -615,10 +623,9 @@ def app():
                 with wfreq_output:
                     # Word frequency
                     st.subheader('Word count') 
-                    
-                    #calculate word frequency - stop words exluded:
-                    
-                    word_sorted=fc.cv_text(user_text, word_stopwords, 1,user_precision,number_remove)
+                                        
+                    #calculate word frequency - stop words exluded:                    
+                    word_sorted=fc.cv_text(user_text_basic, word_stopwords, 1,user_precision,number_remove)
                                                          
                     st.write("")
                     st.write("Number of words: ", word_sorted["Word count"].sum())
@@ -693,11 +700,11 @@ def app():
                         st.info("A comparision of frequencies of short and long words")
 
                     # bigram distribution
-                    cv2_output=fc.cv_text(user_text, word_stopwords, 2,user_precision,number_remove)
+                    cv2_output=fc.cv_text(user_text_basic, word_stopwords, 2,user_precision,number_remove)
                                        
 
                     # trigram distribution
-                    cv3_output=fc.cv_text(user_text, word_stopwords, 3,user_precision,number_remove)
+                    cv3_output=fc.cv_text(user_text_basic, word_stopwords, 3,user_precision,number_remove)
                                 
 
                     a4,a5=st.columns(2)
@@ -728,7 +735,7 @@ def app():
                         #Draw WordCloud
                         wordcloud = WordCloud(background_color="white",
                             contour_color="white",max_words=100,stopwords=word_stopwords,
-                            width=600,height=400,color_func=random_color_func).generate(user_text)  
+                            width=600,height=400,color_func=random_color_func).generate(user_text_basic)  
                         fig_text, ax = plt.subplots()
                         ax=plt.imshow(wordcloud, interpolation='bilinear')
                         plt.axis("off")
@@ -1426,8 +1433,10 @@ def app():
                         text = re.sub(r'@\w+', '', text)
                         return text
 
-                    # Apply preprocessing to the 'text' column                                   
-                    sent_twitter['tweet_text'] = sent_twitter['text'].apply(preprocess_text)
+                    # Apply preprocessing to the 'text' column 
+                    sent_twitter_copy = sent_twitter.copy()                                  
+                    sent_twitter_copy['tweet_text'] = sent_twitter['text'].apply(preprocess_text)
+                    sent_twitter=sent_twitter_copy
                     
                     # Sentiment analysis using VADER
                     analyzer = SentimentIntensityAnalyzer()
@@ -1438,16 +1447,18 @@ def app():
                         return sentiment
                     
                     # Apply sentiment analysis to the 'text' column
-                    sent_twitter['sentiment_scores'] = sent_twitter['tweet_text'].apply(get_sentiment_scores)
-
+                    sent_twitter_copy = sent_twitter.copy()  
+                    sent_twitter_copy['sentiment_scores'] = sent_twitter['tweet_text'].apply(get_sentiment_scores)
+                    sent_twitter=sent_twitter_copy
+                    
                     # Apply sentiment analysis to the 'text' column
-                    sent_twitter['pos'] = sent_twitter['sentiment_scores'].apply(lambda x: x['pos'])
-                    sent_twitter['neu'] = sent_twitter['sentiment_scores'].apply(lambda x: x['neu'])
-                    sent_twitter['neg'] = sent_twitter['sentiment_scores'].apply(lambda x: x['neg'])
+                    sent_twitter_copy['pos'] = sent_twitter['sentiment_scores'].apply(lambda x: x['pos'])
+                    sent_twitter_copy['neu'] = sent_twitter['sentiment_scores'].apply(lambda x: x['neu'])
+                    sent_twitter_copy['neg'] = sent_twitter['sentiment_scores'].apply(lambda x: x['neg'])
                         
                     with st.expander("Sentiment Analysis", expanded=False):                        
                         #Display the table with 'text', 'pos', 'neu', and 'neg' columns
                         st.write("")
-                        st.dataframe(sent_twitter[['tweet_text', 'text','pos', 'neu', 'neg']])
+                        st.dataframe(sent_twitter_copy[['tweet_text', 'text','pos', 'neu', 'neg']])
 
     
